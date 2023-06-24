@@ -146,7 +146,7 @@ exports.allOrders = async (req, res) => {
       .populate("buyer", "name")
       .sort({ createdAt: "-1" });
     res.json(orders);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };

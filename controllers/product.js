@@ -18,12 +18,12 @@ const gateway = new braintree.BraintreeGateway({
 
 exports.create = async (req, res) => {
   try {
-    console.log(req.fields);
-    console.log(req.files);
+    // console.log(req.fields);
+    // console.log(req.files);
     const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
-    console.log("PHOTO========>",photo)
+    // console.log("PHOTO========>",photo)
 
     // validation
     switch (true) {
@@ -171,10 +171,10 @@ exports.filteredProducts = async (req, res) => {
     let args = {};
     if (checked.length > 0) args.category = checked
     if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
-    console.log("args => ", args);
+    // console.log("args => ", args);
 
     const products = await Product.find(args);
-    console.log("filtered products query => ", products.length);
+    // console.log("filtered products query => ", products.length);
     res.json(products);
   } catch (err) {
     console.log(err);
@@ -255,6 +255,7 @@ exports.getToken = async (req, res) => {
   }
 };
 
+
 exports.processPayment = async (req, res) => {
   try {
     // console.log(req.body);
@@ -307,6 +308,8 @@ exports.processPayment = async (req, res) => {
   }
 };
 
+
+
 const decrementQuantity = async (cart) => {
   try {
     // build mongodb query
@@ -320,7 +323,7 @@ const decrementQuantity = async (cart) => {
     });
 
     const updated = await Product.bulkWrite(bulkOps, {});
-    console.log("blk updated", updated);
+    // console.log("blk updated", updated);
   } catch (err) {
     console.log(err);
   }
@@ -336,9 +339,11 @@ exports.orderStatus = async (req, res) => {
       { new: true }
     ).populate("buyer", "email name");
     // send email
+    
 
     // prepare email
     const emailData = {
+      
       from: process.env.EMAIL_FROM,
       to: order.buyer.email,
       subject: "Order status",
@@ -347,7 +352,6 @@ exports.orderStatus = async (req, res) => {
         <p>Visit <a href="${process.env.CLIENT_URL}/dashboard/user/orders">your dashboard</a> for more details</p>
       `,
     };
-
     try {
       await sgMail.send(emailData);
     } catch (err) {
@@ -359,3 +363,5 @@ exports.orderStatus = async (req, res) => {
     console.log(err);
   }
 };
+
+

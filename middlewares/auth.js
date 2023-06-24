@@ -9,6 +9,7 @@ exports.requireSignin = (req, res, next) => {
     );
   
     req.user = decoded;
+    // console.log(req.user._id)
     next();
   } catch (err) {
     return res.status(401).json(err);

@@ -24,8 +24,8 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: ObjectId,
-      ref: "Category",
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "categories",
       required: true,
     },
     quantity: {
@@ -47,5 +47,5 @@ const productSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model("products", productSchema);
 module.exports = Product;

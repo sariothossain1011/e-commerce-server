@@ -5,9 +5,9 @@ const { ObjectId } = mongoose.Schema;
 
 const orderSchema = new Schema(
   {
-    products: [{ type: ObjectId, ref: "Product" }],
+    products: [{ type: ObjectId, ref: "products" }],
     payment: {},
-    buyer: { type: ObjectId, ref: "User" },
+    buyer: { type: ObjectId, ref: "users" },
     status: {
       type: String,
       default: "Not processed",
@@ -23,5 +23,5 @@ const orderSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("orders", orderSchema);
 module.exports = Order;

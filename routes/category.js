@@ -14,6 +14,7 @@ const {
   productsByCategory,
 } =require("../controllers/category.js");
 
+
 router.post("/category", requireSignin, isAdmin, create);
 router.put("/category/:categoryId", requireSignin, isAdmin, update);
 router.delete("/category/:categoryId", requireSignin, isAdmin, remove);
